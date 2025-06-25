@@ -1,0 +1,4 @@
+**/.vscode/
+**/obj/
+**/*.a
+push_swap
