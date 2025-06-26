@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:24:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 12:58:19 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/26 23:16:19 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_lstclear(t_list **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free(lst);
+		free(*lst);
 		*lst = tmp;
 	}
 	*lst = NULL;

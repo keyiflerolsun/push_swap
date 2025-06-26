@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:09:52 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 20:17:57 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/26 23:16:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	swap_a(t_stack *stack, int print)
 	if (print)
 		ft_printf("sa\n");
 }
+
 void	swap_b(t_stack *stack, int print)
 {
 	int	tmp;
@@ -36,6 +37,7 @@ void	swap_b(t_stack *stack, int print)
 	if (print)
 		ft_printf("sb\n");
 }
+
 void	swap_both(t_stack *stack)
 {
 	swap_a(stack, 0);

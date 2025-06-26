@@ -17,5 +17,7 @@
 # include "rules.h"
 
 t_stack	*init_list(char **argv);
+void	print_stack(t_list *stack, char name);
+void	free_stack(t_stack *stack);
 
 #endif
