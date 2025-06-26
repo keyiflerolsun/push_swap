@@ -12,6 +12,12 @@
 
 #include "push_swap.h"
 
+static void	print_stacks(t_stack *stack)
+{
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack;
@@ -19,20 +25,15 @@ int	main(int argc, char **argv)
 	if (argc < 3)
 		return (-1);
 	stack = init_list(argv);
-	print_stack(stack->a, 'A');
-	print_stack(stack->b, 'B');
+	print_stacks(stack);
 	push_b(stack);
-	print_stack(stack->a, 'A');
-	print_stack(stack->b, 'B');
+	print_stacks(stack);
 	push_b(stack);
-	print_stack(stack->a, 'A');
-	print_stack(stack->b, 'B');
+	print_stacks(stack);
 	push_b(stack);
-	print_stack(stack->a, 'A');
-	print_stack(stack->b, 'B');
+	print_stacks(stack);
 	swap_both(stack);
-	print_stack(stack->a, 'A');
-	print_stack(stack->b, 'B');
+	print_stacks(stack);
 	free_stack(stack);
 	return (0);
 }
