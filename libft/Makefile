@@ -1,7 +1,7 @@
-CFILES  = ft_lst.c ft_atoi.c
+CFILES = ft_lst.c ft_atoi.c
 
-OBJDIR  = obj
-OFILES  = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
+OBJDIR = obj
+OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = libft.a
 CC     = cc

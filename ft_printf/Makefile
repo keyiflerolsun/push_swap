@@ -1,11 +1,13 @@
-CFILES = helpers.c
+CFILES = ft_printf.c \
+		 ft_char.c \
+		 ft_num.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME   = push_swap.a
+NAME   = libftprintf.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../libft -I../rules -I../ft_printf
+CFLAGS = -Wall -Wextra -Werror
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m

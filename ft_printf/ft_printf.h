@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 20:50:41 by osancak          ###   ########.fr       */
+/*   Created: 2025/06/15 16:27:30 by osancak           #+#    #+#             */
+/*   Updated: 2025/06/16 00:11:22 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	main(int argc, char **argv)
-{
-	t_stack	*stacks;
-	t_list	*stack;
+# include <stdarg.h>
+# include <unistd.h>
 
-	if (argc < 3)
-		return (-1);
-	stacks = init_list(argv);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	stack = stacks->a;
-	while (stack)
-	{
-		ft_printf("%d\n", stack->value);
-		stack = stack->next;
-	}
-	return (0);
-}
+# define DECIMAL "0123456789"
+# define HEXA_UP "0123456789ABCDEF"
+# define HEXA_DOWN "0123456789abcdef"
+
+int	ft_printf(const char *format, ...);
+int	ft_putchr(char c);
+int	ft_putstr(char *str);
+int	ft_putnbr(long long nbr, char *base, int is_unsigned);
+
+#endif

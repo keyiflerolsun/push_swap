@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_char.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 20:50:41 by osancak          ###   ########.fr       */
+/*   Created: 2025/06/15 19:17:37 by osancak           #+#    #+#             */
+/*   Updated: 2025/06/16 00:11:23 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv)
+int	ft_putchr(char c)
 {
-	t_stack	*stacks;
-	t_list	*stack;
+	write(1, &c, 1);
+	return (1);
+}
 
-	if (argc < 3)
-		return (-1);
-	stacks = init_list(argv);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	stack = stacks->a;
-	while (stack)
-	{
-		ft_printf("%d\n", stack->value);
-		stack = stack->next;
-	}
-	return (0);
+int	ft_putstr(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (ft_putstr("(null)"));
+	i = 0;
+	while (str[i])
+		i += ft_putchr(str[i]);
+	return (i);
 }

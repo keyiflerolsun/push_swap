@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:46:28 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/15 18:24:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/26 20:52:05 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,32 @@ static int	ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_atoi(const char *nptr)
+static int	is_possible(const char *str)
+{
+	if (!str || !*str)
+		return (0);
+	while (*str)
+		if (!ft_isdigit(*str++))
+			return (0);
+	return (1);
+}
+
+int	ft_atoi(const char *nptr, int *res)
 {
 	long int	toi;
 	int			sig;
 
 	sig = 1;
 	toi = 0;
-	while (*nptr && ((*nptr >= '\t' && *nptr <= '\r') || *nptr == ' '))
-		nptr++;
 	if (*nptr == '-' || *nptr == '+')
 		if (*nptr++ == '-')
 			sig *= -1;
+	if (!is_possible(nptr))
+		return (0);
 	while (*nptr && ft_isdigit(*nptr))
 		toi = toi * 10 + (*nptr++ - '0');
-	return (toi * sig);
+	if (toi * sig > 2147483647 || toi * sig < -2147483648)
+		return (0);
+	*res = toi * sig;
+	return (1);
 }

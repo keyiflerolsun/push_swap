@@ -5,10 +5,12 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = push_swap
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Isrc
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Irules -Ift_printf -Isrc
 
 MAKEFLAGS += --no-print-directory --silent
 LIBFT      = libft/libft.a
+RULES      = rules/rules.a
+PRINTF     = ft_printf/libftprintf.a
 P_S        = src/push_swap.a
 
 GREEN   = \033[0;32m
@@ -21,32 +23,42 @@ RESET   = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OFILES) $(P_S) $(LIBFT)
+$(NAME): $(OFILES) $(P_S) $(PRINTF) $(RULES) $(LIBFT)
 	@printf "$(GREEN)» 📦 Linking   $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
-	@$(CC) $(CFLAGS) $(OFILES) $(P_S) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OFILES) $(P_S) $(PRINTF) $(RULES) $(LIBFT) -o $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
 	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%9s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT): FORCE
-	@$(MAKE) -C libft
-
 $(P_S): FORCE
-	@$(MAKE) -C src
+	@$(MAKE) -C $(dir $@)
+
+$(PRINTF): FORCE
+	@$(MAKE) -C $(dir $@)
+
+$(RULES): FORCE
+	@$(MAKE) -C $(dir $@)
+
+$(LIBFT): FORCE
+	@$(MAKE) -C $(dir $@)
 
 clean:
 	@printf "$(RED)» 🧹 Cleaning  $(RESET)» $(CYAN)./$(OBJDIR) $(RESET)\n"
 	@rm -rf $(OBJDIR)
-	@$(MAKE) -C libft clean
-	@$(MAKE) -C src clean
+	@$(MAKE) -C $(dir $(P_S)) clean
+	@$(MAKE) -C $(dir $(PRINTF)) clean
+	@$(MAKE) -C $(dir $(RULES)) clean
+	@$(MAKE) -C $(dir $(LIBFT)) clean
 
 fclean: clean
 	@printf "$(RED)» 🔥 Removing  $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
 	@rm -f $(NAME)
-	@$(MAKE) -C libft fclean
-	@$(MAKE) -C src fclean
+	@$(MAKE) -C $(dir $(P_S)) fclean
+	@$(MAKE) -C $(dir $(PRINTF)) fclean
+	@$(MAKE) -C $(dir $(RULES)) fclean
+	@$(MAKE) -C $(dir $(LIBFT)) fclean
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com.t  +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:24:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/25 22:24:11 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:58:19 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,25 @@
 
 t_list	*ft_lstnew(int value)
 {
-	t_list	*node;
+	t_list	*res;
 
-	node = malloc(sizeof(t_list));
-	if (!node)
+	res = malloc(sizeof(t_list));
+	if (!res)
 		return (NULL);
-	node->value = value;
-	node->next = NULL;
-	return (node);
+	(*res).value = value;
+	res->next = NULL;
+	return (res);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst)
+	{
+		if (!(lst->next))
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
 }
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
@@ -34,36 +45,26 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*last;
+	t_list	*res;
 
-	if (!*lst)
+	if (*lst)
 	{
-		*lst = new;
-		return ;
+		res = ft_lstlast(*lst);
+		res->next = new;
 	}
-	last = *lst;
-	while (last->next)
-		last = last->next;
-	last->next = new;
+	else
+		*lst = new;
 }
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstclear(t_list *lst)
+void	ft_lstclear(t_list **lst)
 {
 	t_list	*tmp;
 
-	while (lst)
+	while (*lst)
 	{
-		tmp = lst->next;
+		tmp = (*lst)->next;
 		free(lst);
-		lst = tmp;
+		*lst = tmp;
 	}
+	*lst = NULL;
 }

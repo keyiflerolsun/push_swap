@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 20:50:41 by osancak          ###   ########.fr       */
+/*   Created: 2025/06/26 13:10:05 by osancak           #+#    #+#             */
+/*   Updated: 2025/06/26 20:45:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "rules.h"
 
-int	main(int argc, char **argv)
+void	push_a(t_stack *stack)
 {
-	t_stack	*stacks;
-	t_list	*stack;
+	t_list	*tmp;
 
-	if (argc < 3)
-		return (-1);
-	stacks = init_list(argv);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_b(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	// push_a(stacks);
-	stack = stacks->a;
-	while (stack)
-	{
-		ft_printf("%d\n", stack->value);
-		stack = stack->next;
-	}
-	return (0);
+	if (!stack->b || !stack->b->value)
+		return ;
+	tmp = stack->b->next;
+	ft_lstadd_front(&stack->a, stack->b);
+	stack->b = tmp;
+	ft_printf("pa\n");
+}
+
+void	push_b(t_stack *stack)
+{
+	t_list	*tmp;
+
+	if (!stack->a || !stack->a->value)
+		return ;
+	tmp = stack->a->next;
+	ft_lstadd_front(&stack->b, stack->a);
+	stack->a = tmp;
+	ft_printf("pb\n");
 }

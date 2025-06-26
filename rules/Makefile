@@ -1,11 +1,14 @@
-CFILES = helpers.c
+CFILES = swap.c \
+		 push.c \
+		 rotate.c \
+		 reverse.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME   = push_swap.a
+NAME   = rules.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../libft -I../rules -I../ft_printf
+CFLAGS = -Wall -Wextra -Werror -I../libft -I../ft_printf
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
