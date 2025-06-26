@@ -19,9 +19,17 @@ int	main(int argc, char **argv)
 	if (argc < 3)
 		return (-1);
 	stack = init_list(argv);
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
 	push_b(stack);
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
 	push_b(stack);
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
 	push_b(stack);
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
 	swap_both(stack);
 	print_stack(stack->a, 'A');
 	print_stack(stack->b, 'B');
