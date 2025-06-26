@@ -16,7 +16,7 @@ void	swap_a(t_stack *stack, int print)
 {
 	int	tmp;
 
-	if (!stack->a->value || !stack->a->next->value)
+	if (!stack->a || !stack->a->next)
 		return ;
 	tmp = stack->a->value;
 	stack->a->value = stack->a->next->value;
@@ -29,7 +29,7 @@ void	swap_b(t_stack *stack, int print)
 {
 	int	tmp;
 
-	if (!stack->b->value || !stack->b->next->value)
+	if (!stack->b || !stack->b->next)
 		return ;
 	tmp = stack->b->value;
 	stack->b->value = stack->b->next->value;

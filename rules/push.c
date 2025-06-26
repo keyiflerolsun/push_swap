@@ -16,7 +16,7 @@ void	push_a(t_stack *stack)
 {
 	t_list	*tmp;
 
-	if (!stack->b || !stack->b->value)
+	if (!stack->b)
 		return ;
 	tmp = stack->b->next;
 	ft_lstadd_front(&stack->a, stack->b);
@@ -28,7 +28,7 @@ void	push_b(t_stack *stack)
 {
 	t_list	*tmp;
 
-	if (!stack->a || !stack->a->value)
+	if (!stack->a)
 		return ;
 	tmp = stack->a->next;
 	ft_lstadd_front(&stack->b, stack->a);
