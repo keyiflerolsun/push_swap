@@ -12,6 +12,24 @@
 
 #include "rules.h"
 
-void	reverse_a(t_stack *stack, int print);
-void	reverse_b(t_stack *stack, int print);
-void	reverse_both(t_stack *stack);
+static void	cut_last(t_list *lst)
+{
+	while (lst && lst->next->next)
+		lst = lst->next;
+	lst->next = NULL;
+}
+
+void	reverse_a(t_stack *stack, int print)
+{
+	t_list	*last;
+
+	if (!stack->a)
+		return ;
+	last = ft_lstlast(stack->a);
+	cut_last(stack->a);
+	ft_lstadd_front(&stack->a, last);
+	if (print)
+		ft_printf("rra\n");
+}
+void		reverse_b(t_stack *stack, int print);
+void		reverse_both(t_stack *stack);
