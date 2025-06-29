@@ -6,11 +6,33 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:00:37 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/27 16:56:57 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/29 10:13:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	err_exit(t_stack *stack)
+{
+	if (stack)
+		free(stack);
+	write(2, "\033[0;31mError\033[0m\n", 17);
+	exit(1);
+}
+
+static int	is_in_list(t_list *lst, int i)
+{
+	int	res;
+
+	res = 0;
+	while (lst)
+	{
+		if (i == lst->value)
+			res = 1;
+		lst = lst->next;
+	}
+	return (res);
+}
 
 t_stack	*init_list(char **argv)
 {
@@ -19,21 +41,17 @@ t_stack	*init_list(char **argv)
 
 	res = malloc(sizeof(t_stack));
 	if (!res)
-		exit(1);
+		err_exit(res);
 	while (!ft_atoi(*++argv, &tmp))
-	{
-		free(res);
-		exit(1);
-	}
+		err_exit(res);
 	res->a = ft_lstnew(tmp);
 	res->b = NULL;
 	while (*++argv && *argv)
 	{
-		if (!ft_atoi(*argv, &tmp))
+		if (!ft_atoi(*argv, &tmp) || is_in_list(res->a, tmp))
 		{
 			ft_lstclear(&(res->a));
-			free(res);
-			exit(1);
+			err_exit(res);
 		}
 		ft_lstadd_back(&(res->a), ft_lstnew(tmp));
 	}

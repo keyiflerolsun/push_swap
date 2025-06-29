@@ -6,12 +6,14 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:09:52 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/27 16:57:00 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/29 10:08:04 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rules.h"
 
+// ? A » 1 2 3 4 5
+// * A » 2 1 3 4 5
 void	swap_a(t_stack *stack, int print)
 {
 	int	tmp;

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/27 20:35:38 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/29 10:12:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack;
 
-	if (argc < 3)
+	if (argc < 2)
 		return (-1);
 	stack = init_list(argv);
 	print_stacks(stack);
 	reverse_a(stack, 1);
 	print_stacks(stack);
+	free_stack(stack);
 	return (0);
 }
