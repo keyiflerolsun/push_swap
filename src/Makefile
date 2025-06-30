@@ -1,4 +1,7 @@
-CFILES = helpers.c
+CFILES = helpers.c \
+		 list_utils.c \
+		 move.c \
+		 sort.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

@@ -3,3 +3,5 @@
 **/*.a
 checker_linux
 push_swap
+rngen.py
+test.sh

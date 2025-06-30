@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:02:27 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/29 10:35:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/30 08:26:55 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_stack
 
 // ? A » 1 2 3 4 5
 // * A » 2 1 3 4 5
-void		swap_a(t_stack *stacki, int print);
+void		swap_a(t_stack *stack, int print);
 void		swap_b(t_stack *stack, int print);
 void		swap_both(t_stack *stack);
 

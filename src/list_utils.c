@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 13:54:37 by osancak          ###   ########.fr       */
+/*   Created: 2025/06/30 08:02:04 by osancak           #+#    #+#             */
+/*   Updated: 2025/06/30 13:47:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	print_stacks(t_stack *stack)
 {
-	t_stack	*stack;
+	print_stack(stack->a, 'A');
+	print_stack(stack->b, 'B');
+}
 
-	if (argc < 2)
-		return (-1);
-	else if (argc == 2)
-		stack = init_list(ft_split(argv[1], ' '));
-	else
-		stack = init_list(++argv);
-	sort(stack);
-	print_stacks(stack);
-	free_stack(stack);
-	return (0);
+int	is_sorted(t_list *lst)
+{
+	while (lst && lst->next)
+	{
+		if (lst->value > lst->next->value)
+			return (0);
+		lst = lst->next;
+	}
+	return (1);
+}
+
+int	lst_size(t_list *lst)
+{
+	int	res;
+
+	res = 0;
+	while (lst)
+	{
+		res++;
+		lst = lst->next;
+	}
+	return (res);
 }

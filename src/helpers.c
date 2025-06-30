@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:00:37 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/29 10:13:54 by osancak          ###   ########.fr       */
+/*   Updated: 2025/06/30 11:13:39 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_stack	*init_list(char **argv)
 	res = malloc(sizeof(t_stack));
 	if (!res)
 		err_exit(res);
-	while (!ft_atoi(*++argv, &tmp))
+	while (!ft_atoi(*argv, &tmp))
 		err_exit(res);
 	res->a = ft_lstnew(tmp);
 	res->b = NULL;

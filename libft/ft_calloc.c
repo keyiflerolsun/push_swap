@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 22:15:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 13:54:37 by osancak          ###   ########.fr       */
+/*   Created: 2025/05/29 16:50:14 by osancak           #+#    #+#             */
+/*   Updated: 2025/06/30 11:04:17 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+static void	ft_bzero(void *s, size_t n)
 {
-	t_stack	*stack;
+	while (n--)
+		*(char *)s++ = 0;
+}
 
-	if (argc < 2)
-		return (-1);
-	else if (argc == 2)
-		stack = init_list(ft_split(argv[1], ' '));
-	else
-		stack = init_list(++argv);
-	sort(stack);
-	print_stacks(stack);
-	free_stack(stack);
-	return (0);
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*res;
+
+	if (!nmemb || !size)
+		return (malloc(0));
+	res = malloc(nmemb * size);
+	if (!res)
+		return (NULL);
+	ft_bzero(res, nmemb * size);
+	return (res);
 }
