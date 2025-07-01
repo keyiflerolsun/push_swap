@@ -18,7 +18,7 @@
  * » 3 1 2
  * » 1 3 2
  * » 2 3 1
-*/
+ */
 void	sort_three(t_stack *stack)
 {
 	int	left;
