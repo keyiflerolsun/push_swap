@@ -50,27 +50,35 @@ Yine de, ilk yönteme göre daha az işlemle sıralama yapabildim. Bu da beni da
 
 ### 🧱 3. Aşama: Listeyi Chunk’lara Bölmek (Şu Anki Yöntem)
 
-Son aşamada listeyi sadece iki gruba ayırmak yerine, daha küçük ve kontrollü parçalara ayırmayı denedim. Bu parçaları genellikle **chunk** olarak adlandırıyoruz.
+Son aşamada, listeyi sadece iki parçaya ayırmak yerine daha küçük ve kontrollü bölümlere ayırmaya karar verdim. Bu bölümler genellikle **chunk** olarak adlandırılır.
 
-Yaptığım işlem özetle şöyleydi:
+Kodda yaptığım işlem şu şekilde:
 
-- A yığınındaki minimum ve maksimum değeri hesapladım.
-- Bu aralıkta kalan değerleri yaklaşık olarak 5 eşit parçaya (chunk) böldüm.
-- Her parça için bir **eşik değeri** (threshold) belirleyip, o aralıktaki elemanları B yığınına gönderdim.
+- Önce A yığınındaki minimum ve maksimum değeri `get_min_max` fonksiyonuyla tespit ettim.
+- Bu aralık `(max - min)` yaklaşık olarak 5 eşit parçaya bölündü (`ch_range = (max - min) / 5`).
+- Her bir chunk için bir **eşik değer** (`threshold`) belirlendi.
+- `push_chunk_to_b` fonksiyonu ile bu eşiğin altındaki değerler A’dan B’ye gönderildi.
 
-Bu noktada birkaç strateji kullandım:
+Bu sırada bazı optimizasyonlar kullandım:
 
-- Eğer eleman `threshold` değerinden küçükse, `push_b` ile B’ye gönderdim.
-- Eğer bu eleman aynı zamanda daha da küçük bir değerse (örneğin threshold’un yarısından küçükse), `rotate_b` ile B’nin **altına** gönderdim.
-  - Bu sayede B yığını küçükten büyüğe olacak şekilde daha düzenli doldu.
+- Eğer eleman `threshold` değerinden **küçük veya eşitse**, `push_b` ile B’ye alındı.
+- Bu eleman aynı zamanda `threshold / 2`'den küçükse, `rotate_b` ile B’nin **altına** gönderildi.
+  - Böylece B yığını kendi içinde küçükten büyüğe daha düzenli yerleşmiş oldu.
+- Diğer elemanlar için A yığını `rotate_a` ile döndürüldü.
+- Bu işlem her chunk için ayrı ayrı tekrarlandı.
 
-Bu işlemi her chunk için tekrarladım. Sonuçta:
+Chunk işlemleri bittiğinde:
 
-- A yığınında sadece 3 eleman kalmıştı, onları `sort_three` ile sıraladım.
-- B yığınındaki elemanları da en büyüğünden başlayarak A’ya geri taşıdım (`push_a`).
-  - Bu noktada B zaten büyükten küçüğe sıralı olduğu için A’ya doğrudan sıralı olarak yerleşti.
+- A yığınında 3 eleman kalmıştı; bu elemanları `sort_three` fonksiyonuyla sıraladım.
+- Ardından B yığınındaki elemanlar, en büyükten başlayarak sırayla A’ya geri alındı:
+  - `move_max_to_top_b` ile B’deki en büyük eleman yukarı taşındı.
+  - Sonra `push_a` ile A’ya alındı.
 
-Bu yöntem, önceki denemelere göre çok daha verimli çalıştı. Elemanlar kontrollü şekilde taşındığı için işlem sayısı belirgin şekilde azaldı ve sıralama daha öngörülebilir hale geldi.
+Bu yöntem sayesinde:
+
+- B yığını büyükten küçüğe sıralı olduğu için A’ya alınan elemanlar doğrudan sıralı şekilde yerleşti.
+- `rotate` ve `push` işlemlerinin toplam sayısı belirgin şekilde azaldı.
+- Önceki yöntemlere göre çok daha **kontrollü ve verimli** bir sıralama elde edildi.
 
 ---
 

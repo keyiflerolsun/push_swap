@@ -28,10 +28,10 @@ static void	get_min_max(t_list *lst, int *min, int *max)
 
 static void	push_chunk_to_b(t_stack *stack, int threshold)
 {
-	int	rotations;
+	int	scanned;
 
-	rotations = -1;
-	while (lst_size(stack->a) > 3 && ++rotations < lst_size(stack->a))
+	scanned = -1;
+	while (lst_size(stack->a) > 3 && ++scanned < lst_size(stack->a))
 	{
 		if (stack->a->value <= threshold)
 		{
@@ -39,7 +39,7 @@ static void	push_chunk_to_b(t_stack *stack, int threshold)
 			if (stack->b && lst_size(stack->b) > 1
 				&& stack->b->value < threshold / 2)
 				rotate_b(stack, 1);
-			rotations = -1;
+			scanned = -1;
 		}
 		else
 			rotate_a(stack, 1);
@@ -50,14 +50,14 @@ void	sort_large(t_stack *stack)
 {
 	int	min_val;
 	int	max_val;
-	int	chunk_size;
-	int	pass;
+	int	ch_range;
+	int	ch_index;
 
 	get_min_max(stack->a, &min_val, &max_val);
-	chunk_size = (max_val - min_val) / 5;
-	pass = 0;
-	while (++pass <= 4 && lst_size(stack->a) > 3)
-		push_chunk_to_b(stack, min_val + (chunk_size * pass));
+	ch_range = (max_val - min_val) / 5;
+	ch_index = 0;
+	while (++ch_index <= 4 && lst_size(stack->a) > 3)
+		push_chunk_to_b(stack, min_val + (ch_range * ch_index));
 	while (lst_size(stack->a) > 3)
 	{
 		move_min_to_top_a(stack);
