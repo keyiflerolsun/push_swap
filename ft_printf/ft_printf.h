@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:27:30 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/16 00:11:22 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/01 09:52:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # define DECIMAL "0123456789"
 # define HEXA_UP "0123456789ABCDEF"
 # define HEXA_DOWN "0123456789abcdef"
+
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;36m"
+# define RED "\033[0;31m"
+# define MAGENTA "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define RESET "\033[0m"
 
 int	ft_printf(const char *format, ...);
 int	ft_putchr(char c);

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:00:37 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 11:13:39 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/01 09:57:52 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_stack	*init_list(char **argv)
 	int		tmp;
 
 	res = malloc(sizeof(t_stack));
-	if (!res)
+	if (!res || !*argv)
 		err_exit(res);
 	while (!ft_atoi(*argv, &tmp))
 		err_exit(res);
@@ -60,13 +60,13 @@ t_stack	*init_list(char **argv)
 
 void	print_stack(t_list *stack, char name)
 {
-	ft_printf("\033[0;32m %c » \033[0;33m", name);
+	ft_printf("%s %c » %s", GREEN, name, YELLOW);
 	while (stack)
 	{
 		ft_printf("%d ", stack->value);
 		stack = stack->next;
 	}
-	ft_printf("\033[0m\n");
+	ft_printf("%s\n", RESET);
 }
 
 void	free_stack(t_stack *stack)
