@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 08:22:49 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 14:01:51 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/01 06:06:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
  * » 3 1 2
  * » 1 3 2
  * » 2 3 1
- */
-static void	sort_three(t_stack *stack)
+*/
+void	sort_three(t_stack *stack)
 {
 	int	left;
 	int	middle;
@@ -48,25 +48,28 @@ static void	sort_three(t_stack *stack)
 		reverse_a(stack, 1);
 }
 
+static void	sort_small(t_stack *stack)
+{
+	while (lst_size(stack->a) > 3 && !is_sorted(stack->a))
+	{
+		move_min_to_top_a(stack);
+		push_b(stack);
+	}
+	sort_three(stack);
+	while (stack->b)
+		push_a(stack);
+}
+
 void	sort(t_stack *stack)
 {
 	if (is_sorted(stack->a))
 		return ;
 	if (lst_size(stack->a) == 2)
 		swap_a(stack, 1);
-	if (lst_size(stack->a) == 3)
+	else if (lst_size(stack->a) == 3)
 		sort_three(stack);
-	if (lst_size(stack->a) > 3)
-	{
-		while (lst_size(stack->a) > 3 && !is_sorted(stack->a))
-		{
-			move_min_to_top(stack);
-			push_b(stack);
-			print_stacks(stack);
-		}
-		sort_three(stack);
-		print_stacks(stack);
-		while (stack->b)
-			push_a(stack);
-	}
+	else if (lst_size(stack->a) <= 5)
+		sort_small(stack);
+	else
+		sort_large(stack);
 }

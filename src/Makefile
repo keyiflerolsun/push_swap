@@ -1,6 +1,8 @@
 CFILES = helpers.c \
 		 list_utils.c \
-		 move.c \
+		 move_small.c \
+		 move_large.c \
+		 sort_large.c \
 		 sort.c
 
 OBJDIR = obj
