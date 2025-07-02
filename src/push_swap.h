@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:07:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/01 07:33:04 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/02 19:10:14 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		lst_size(t_list *lst);
 void	move_min_to_top_a(t_stack *stack);
 void	move_max_to_top_b(t_stack *stack);
 void	sort_three(t_stack *stack);
-void	sort_large(t_stack *stack);
+void	sort_large(t_stack *stack, int ch_size);
 void	sort(t_stack *stack);
 
 #endif

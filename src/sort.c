@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 08:22:49 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/01 07:33:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/02 21:17:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ static void	sort_small(t_stack *stack)
 		push_a(stack);
 }
 
+static int	get_ch_size_w_log2(int n)
+{
+	int	log;
+
+	log = 0;
+	if (n <= 0)
+		return (0);
+	while (n > 1)
+	{
+		n = n / 2;
+		log++;
+	}
+	if (log < 2)
+		log = 2;
+	if (log > 20)
+		log = 20;
+	return (log);
+}
+
 void	sort(t_stack *stack)
 {
 	if (is_sorted(stack->a))
@@ -68,8 +87,8 @@ void	sort(t_stack *stack)
 		swap_a(stack, 1);
 	else if (lst_size(stack->a) == 3)
 		sort_three(stack);
-	else if (lst_size(stack->a) <= 5)
+	else if (lst_size(stack->a) <= 10)
 		sort_small(stack);
 	else
-		sort_large(stack);
+		sort_large(stack, get_ch_size_w_log2(lst_size(stack->a)));
 }
