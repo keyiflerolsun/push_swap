@@ -48,37 +48,77 @@ Yine de, ilk yönteme göre daha az işlemle sıralama yapabildim. Bu da beni da
 
 ---
 
-### 🧱 3. Aşama: Listeyi Chunk’lara Bölmek (Şu Anki Yöntem)
+## 🧱 Aşama 3: Listeyi Chunk’lara Bölerek Sıralama
 
-Son aşamada, listeyi sadece iki parçaya ayırmak yerine daha küçük ve kontrollü bölümlere ayırmaya karar verdim. Bu bölümler genellikle **chunk** olarak adlandırılır.
+Bu aşamada, büyük bir listeyi daha küçük **chunk** (parça)’lara bölerek sıralama işlemi gerçekleştirilir. Bu yöntem, işlemleri hem daha yönetilebilir kılar hem de performansı artırır.
 
-Kodda yaptığım işlem şu şekilde:
+---
 
-- Önce A yığınındaki minimum ve maksimum değeri `get_min_max` fonksiyonuyla tespit ettim.
-- Bu aralık `(max - min)` yaklaşık olarak 5 eşit parçaya bölündü (`ch_range = (max - min) / 5`).
-- Her bir chunk için bir **eşik değer** (`threshold`) belirlendi.
-- `push_chunk_to_b` fonksiyonu ile bu eşiğin altındaki değerler A’dan B’ye gönderildi.
+### 🔹 Chunk Nedir?
 
-Bu sırada bazı optimizasyonlar kullandım:
+**Chunk**, büyük bir veri listesinin daha küçük alt gruplara bölünmesidir. Her chunk belirli bir sayı aralığını kapsar.
 
-- Eğer eleman `threshold` değerinden **küçük veya eşitse**, `push_b` ile B’ye alındı.
-- Bu eleman aynı zamanda `threshold / 2`'den küçükse, `rotate_b` ile B’nin **altına** gönderildi.
-  - Böylece B yığını kendi içinde küçükten büyüğe daha düzenli yerleşmiş oldu.
-- Diğer elemanlar için A yığını `rotate_a` ile döndürüldü.
-- Bu işlem her chunk için ayrı ayrı tekrarlandı.
+Örnek:
+- Liste: `[3, 12, 25, 37, 44, 50, 61, 70]`
+- Min: 3, Max: 70 → Aralık: `67`
+- 5 parçaya bölünecekse → Her bir chunk ≈ `13.4` değerlik aralık kapsar.
 
-Chunk işlemleri bittiğinde:
+Chunk aralığı aşağıdaki formülle hesaplanır:
 
-- A yığınında 3 eleman kalmıştı; bu elemanları `sort_three` fonksiyonuyla sıraladım.
-- Ardından B yığınındaki elemanlar, en büyükten başlayarak sırayla A’ya geri alındı:
-  - `move_max_to_top_b` ile B’deki en büyük eleman yukarı taşındı.
-  - Sonra `push_a` ile A’ya alındı.
+```c
+ch_range = (max_val - min_val + ch_size - 1) / ch_size;
+```
 
-Bu yöntem sayesinde:
+> Bu formül, tamsayı bölmede veri kaybını önlemek için yukarı yuvarlama sağlar.
 
-- B yığını büyükten küçüğe sıralı olduğu için A’ya alınan elemanlar doğrudan sıralı şekilde yerleşti.
-- `rotate` ve `push` işlemlerinin toplam sayısı belirgin şekilde azaldı.
-- Önceki yöntemlere göre çok daha **kontrollü ve verimli** bir sıralama elde edildi.
+Örnek hesaplama:
+
+```c
+min_val = 3;
+max_val = 70;
+ch_size = 5;
+
+ch_range = (70 - 3 + 5 - 1) / 5 = 14;
+```
+
+Buna göre chunk sınırları:
+
+- Chunk 1: [3, 17)
+- Chunk 2: [17, 31)
+- Chunk 3: [31, 45)
+- Chunk 4: [45, 59)
+- Chunk 5: [59, 73)
+
+---
+
+### 🔹 Eşik (Threshold) Nedir?
+
+Her chunk’ın **üst sınırı**, o parça için bir **eşik (threshold)** olarak kullanılır.
+
+Örnek:
+- Eşik = 40 ise → A yığınındaki değeri 40’tan küçük olanlar B’ye gönderilir.
+- Eğer değer threshold’un **alt yarısında** ise (`< median`) → `rotate_b` ile B’de alta gönderilir.
+
+Bu şekilde, B yığını kendi içinde kabaca sıralanmış olur.
+
+---
+
+### 🔹 Genel İşleyiş
+
+1. A yığınındaki elemanlar, chunk threshold’una göre B’ye aktarılır.
+2. Daha küçük olanlar B’de alta döndürülür (`rotate_b`).
+3. A’da 3 eleman kalana kadar devam eder.
+4. A’daki 3 eleman `sort_three()` ile sıralanır.
+5. B’deki en büyük eleman teker teker yukarı alınarak A’ya geri gönderilir.
+6. Sonuç olarak A yığını küçükten büyüğe sıralanmış olur.
+
+---
+
+### 🔸 Avantajları
+
+- **Kontrollü** veri dağılımı sağlar.
+- `rotate`, `reverse`, `push` işlemlerini **azaltır**.
+- Büyük listelerde **önceki yöntemlerden daha verimlidir**.
 
 ---
 
