@@ -1,8 +1,12 @@
-CFILES = ft_lst.c \
+CFILES = ft_strlen.c \
+		 ft_isdigit.c \
+		 ft_lst.c \
 		 ft_atoi.c \
 		 ft_calloc.c \
 		 ft_substr.c \
-		 ft_split.c
+		 ft_split.c \
+		 ft_strchr.c \
+		 ft_strjoin.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

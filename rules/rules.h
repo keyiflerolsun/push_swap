@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:02:27 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 08:26:55 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 16:07:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define RULES_H
 
 # include "ft_printf.h"
-# include "libft.h"
 
 typedef struct s_stack
 {

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:27:30 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/01 09:52:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 13:31:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
+# include "libft.h"
 
 # define DECIMAL "0123456789"
 # define HEXA_UP "0123456789ABCDEF"

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 08:22:49 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/02 21:17:03 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 21:01:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	sort(t_stack *stack)
 		swap_a(stack, 1);
 	else if (lst_size(stack->a) == 3)
 		sort_three(stack);
-	else if (lst_size(stack->a) <= 10)
+	else if (lst_size(stack->a) <= 50)
 		sort_small(stack);
 	else
 		sort_large(stack, get_ch_size_w_log2(lst_size(stack->a)));

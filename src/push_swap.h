@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 23:07:56 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/02 19:10:14 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:20:13 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ft_printf.h"
 # include "rules.h"
 
-t_stack	*init_list(char **argv);
+t_stack	*init_list(char *single, char **argv);
 void	print_stack(t_list *stack, char name);
 void	print_stacks(t_stack *stack);
 void	free_stack(t_stack *stack);

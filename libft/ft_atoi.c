@@ -6,16 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:46:28 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/26 20:52:05 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 17:18:50 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
 
 static int	is_possible(const char *str)
 {
@@ -40,7 +35,12 @@ int	ft_atoi(const char *nptr, int *res)
 	if (!is_possible(nptr))
 		return (0);
 	while (*nptr && ft_isdigit(*nptr))
-		toi = toi * 10 + (*nptr++ - '0');
+	{
+		toi = toi * 10;
+		if (toi >= 2147483647)
+			return (0);
+		toi += (*nptr++ - '0');
+	}
 	if (toi * sig > 2147483647 || toi * sig < -2147483648)
 		return (0);
 	*res = toi * sig;

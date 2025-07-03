@@ -6,21 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 22:36:29 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/16 00:11:25 by osancak          ###   ########.fr       */
+/*   Updated: 2025/07/03 13:30:38 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	ft_putnbr(long long nbr, char *base, int is_unsigned)
 {

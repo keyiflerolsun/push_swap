@@ -7,7 +7,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = libftprintf.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I../libft
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
