@@ -812,6 +812,16 @@
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
             background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
         }
+
+        .btn-action.edit-mode {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-action.edit-mode:hover {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -833,9 +843,9 @@
                 </div>
             </div>
             <div class="button-section">
-                <button class="btn-action" onclick="initializeStacks()">
-                    <span class="icon">✓</span>
-                    <span>Uygula</span>
+                <button class="btn-action" id="applyBtn" onclick="toggleApplyEdit()">
+                    <span class="icon" id="applyIcon">✓</span>
+                    <span id="applyText">Uygula</span>
                 </button>
                 <div class="random-buttons">
                     <button class="btn-random" onclick="generateRandomNumbers(100)">
@@ -931,6 +941,7 @@
         let playSpeed = 50;
         let originalStackA = [];
         let allStates = [];
+        let isEditMode = true; // Başlangıçta edit modunda
 
         function getElementColor(value, max, min) {
             const normalized = (value - min) / (max - min);
@@ -1292,6 +1303,9 @@
                     showMessage(`${steps.length} adım hazır! Play butonuna basın.`, 'success');
                 }
                 
+                // Başarılı uygulama sonrası buton durumunu değiştir
+                updateApplyButton(false); // Edit mode'a geç
+                
             } catch (error) {
                 showMessage(error.message, 'error');
             }
@@ -1326,6 +1340,10 @@
             
             renderStacks();
             updateProgress();
+            
+            // Buton durumunu edit mode'a getir
+            updateApplyButton(true);
+            
             showMessage('Tüm veriler temizlendi!', 'success');
         }
 
@@ -1831,6 +1849,75 @@
             return result.trim();
         }
 
+
+        function toggleApplyEdit() {
+            if (isEditMode) {
+                // Edit modda iken "Uygula" butonuna basıldı
+                initializeStacks();
+            } else {
+                // Apply modda iken "Düzenle" butonuna basıldı
+                editMode();
+            }
+        }
+
+        function updateApplyButton(editMode) {
+            const applyBtn = document.getElementById('applyBtn');
+            const applyIcon = document.getElementById('applyIcon');
+            const applyText = document.getElementById('applyText');
+            
+            isEditMode = editMode;
+            
+            if (editMode) {
+                // Edit mode - Uygula butonu
+                applyIcon.textContent = '✓';
+                applyText.textContent = 'Uygula';
+                applyBtn.classList.remove('edit-mode');
+            } else {
+                // Apply mode - Düzenle butonu
+                applyIcon.textContent = '✏️';
+                applyText.textContent = 'Düzenle';
+                applyBtn.classList.add('edit-mode');
+            }
+        }
+
+        function editMode() {
+            // Animasyonları durdur
+            stopSteps();
+            
+            // Stats ve durumları sıfırla (text area içeriği hariç)
+            stackA = [];
+            stackB = [];
+            originalStackA = [];
+            operationCount = 0;
+            history = [];
+            currentStepIndex = 0;
+            playingSteps = [];
+            allStates = [];
+            
+            // UI butonlarını sıfırla
+            const playBtn = document.getElementById('playPauseBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            playBtn.classList.remove('paused');
+            playBtn.removeAttribute('data-state');
+            document.getElementById('playPauseIcon').textContent = '▷';
+            restartBtn.classList.remove('visible');
+            
+            // Textarea'ları düzenlenebilir yap
+            document.getElementById('numbers').readOnly = false;
+            document.getElementById('steps').readOnly = false;
+            
+            // History'yi temizle
+            document.getElementById('historyList').innerHTML = '<div class="history-item">~</div>';
+            
+            // Stacks'i render et ve progress'i güncelle
+            renderStacks();
+            updateProgress();
+            
+            // Buton durumunu güncelle
+            updateApplyButton(true); // Edit mode'a geç
+            
+            showMessage('Düzenleme moduna geçildi!', 'success');
+        }
 
     </script>
 </body>
