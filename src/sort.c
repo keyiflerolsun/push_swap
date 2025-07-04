@@ -64,9 +64,9 @@ static int	get_ch_size_w_log2(int n)
 {
 	int	log;
 
-	log = 0;
 	if (n <= 0)
 		return (0);
+	log = 0;
 	while (n > 1)
 	{
 		n = n / 2;
@@ -74,8 +74,6 @@ static int	get_ch_size_w_log2(int n)
 	}
 	if (log < 2)
 		log = 2;
-	if (log > 20)
-		log = 20;
 	return (log);
 }
 
