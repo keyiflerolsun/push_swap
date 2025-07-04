@@ -865,8 +865,8 @@
             <div class="controls-section">
                 <div class="input-group">
                     <label for="speedRange">Hız:</label>
-                    <input type="range" id="speedRange" min="1" max="100" value="6" step="1" oninput="updateSpeed(this.value)">
-                    <span id="speedDisplay">6ms</span>
+                    <input type="range" id="speedRange" min="1" max="10" value="5" step="0.1" oninput="updateSpeed(this.value)">
+                    <span id="speedDisplay">Orta</span>
                 </div>
                 <div class="control-buttons">
                     <button class="btn-small" onclick="stepBackward()">⏮</button>
@@ -1044,16 +1044,66 @@
         }
 
         function updateSpeed(value) {
-            playSpeed = parseFloat(value);
-            const displayValue = value == 0 ? 'MAX' : `${value}ms`;
-            document.getElementById('speedDisplay').textContent = displayValue;
+            // Logaritmik hız ölçeği - daha hassas kontrol
+            const speedValue = parseFloat(value);
+            
+            // Hız seviyeleri (ms cinsinden):
+            // 1.0 = 500ms (Çok Yavaş)
+            // 2.0 = 200ms (Yavaş) 
+            // 3.0 = 100ms (Normal Yavaş)
+            // 4.0 = 50ms (Normal)
+            // 5.0 = 25ms (Orta) - varsayılan
+            // 6.0 = 15ms (Hızlı)
+            // 7.0 = 8ms (Çok Hızlı)
+            // 8.0 = 4ms (Ultra Hızlı)
+            // 9.0 = 2ms (Maksimum)
+            // 10.0 = 0.5ms (Turbo)
+            
+            const speedMap = {
+                1: { delay: 500, label: "Çok Yavaş" },
+                1.5: { delay: 350, label: "Yavaş" },
+                2: { delay: 200, label: "Yavaş" },
+                2.5: { delay: 150, label: "Normal Yavaş" },
+                3: { delay: 100, label: "Normal Yavaş" },
+                3.5: { delay: 75, label: "Normal" },
+                4: { delay: 50, label: "Normal" },
+                4.5: { delay: 35, label: "Orta Yavaş" },
+                5: { delay: 25, label: "Orta" },
+                5.5: { delay: 20, label: "Orta Hızlı" },
+                6: { delay: 15, label: "Hızlı" },
+                6.5: { delay: 12, label: "Hızlı" },
+                7: { delay: 8, label: "Çok Hızlı" },
+                7.5: { delay: 6, label: "Ultra Hızlı" },
+                8: { delay: 4, label: "Ultra Hızlı" },
+                8.5: { delay: 3, label: "Maksimum" },
+                9: { delay: 2, label: "Maksimum" },
+                9.5: { delay: 1, label: "Turbo" },
+                10: { delay: 0.5, label: "Turbo" }
+            };
+            
+            // En yakın değeri bul
+            let closestKey = 1;
+            let minDiff = Math.abs(speedValue - 1);
+            
+            for (const key in speedMap) {
+                const diff = Math.abs(speedValue - parseFloat(key));
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestKey = parseFloat(key);
+                }
+            }
+            
+            const speedConfig = speedMap[closestKey];
+            playSpeed = speedConfig.delay;
+            
+            document.getElementById('speedDisplay').textContent = speedConfig.label;
         }
 
         function addToHistory(operation) {
             history.push(operation);
             
             // Çok hızlı modda history güncellemeyi throttle et
-            if (playSpeed >= 25 || history.length % Math.max(1, Math.floor(50 / Math.max(playSpeed, 0.1))) === 0) {
+            if (playSpeed >= 15 || history.length % Math.max(1, Math.floor(30 / Math.max(playSpeed, 0.1))) === 0) {
                 const historyList = document.getElementById('historyList');
                 
                 // Sadece son 3 işlemi göster
@@ -1515,8 +1565,8 @@
                 return;
             }
 
-            // Ultra hızlı modda batch processing (sadece 10ms altında)
-            const batchSize = playSpeed < 10 ? Math.max(1, Math.floor(20 / Math.max(playSpeed, 0.1))) : 1;
+            // Ultra hızlı modda batch processing (sadece 5ms altında)
+            const batchSize = playSpeed < 5 ? Math.max(1, Math.floor(15 / Math.max(playSpeed, 0.1))) : 1;
             const endIndex = Math.min(currentStepIndex + batchSize, playingSteps.length);
             
             // Batch işlem
@@ -1532,8 +1582,8 @@
                 currentStepIndex++;
             }
             
-            // Performans optimizasyonu: Çok hızlı hızlarda rendering'i throttle et
-            const shouldRender = playSpeed >= 25 || currentStepIndex % Math.max(1, Math.floor(50 / Math.max(playSpeed, 0.1))) === 0;
+            // Performans optimizasyonu: Hızlı hızlarda rendering'i throttle et
+            const shouldRender = playSpeed >= 15 || currentStepIndex % Math.max(1, Math.floor(30 / Math.max(playSpeed, 0.1))) === 0;
             
             if (shouldRender || currentStepIndex >= playingSteps.length) {
                 renderStacks();
@@ -1774,6 +1824,10 @@
         window.onload = function() {
             // Varsayılan değerler
             document.getElementById('numbers').value = '';
+            
+            // Hız kontrolünü başlat
+            updateSpeed(5); // Orta hız
+            
             initializeStacks();
         };
 
