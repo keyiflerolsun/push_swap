@@ -1,3 +1,9 @@
+# Push Swap
+
+## 📋 Proje Hakkında
+
+Bu proje, 42 müfredatının bir parçası olan **Push Swap** algoritma optimizasyon projesidir. Amaç, iki yığın kullanarak bir listeyi en az hamle ile sıralamaktır.
+
 ### 🧩 1. Aşama: Küçük Liste Kurallarını Tüm Listeye Uygulamak
 
 İlk denememde, liste sıralı mı diye kontrol ederek başladım. Eğer zaten sıralıysa, hiçbir işlem yapmadan algoritmayı sonlandırıyordum.
@@ -76,3 +82,23 @@ Bu aşamada, uzun listelerdeki gereksiz dönüş ve taşıma işlemlerini azaltm
   - İşlemler kontrollü parçalarda ilerlediği için `rotate`/`reverse` ve `push` sayısı azalıyor.  
   - B yığını içinde yarı-sıralı bloklar oluşturarak geri toplamada ek hamle ihtiyacını düşürüyor.  
   - Orta ve büyük ölçekli listelerde önceki yöntemlere kıyasla çok daha verimli sonuç veriyor.
+
+## 📁 Proje Yapısı
+
+```
+push_swap/
+├── src/           # Ana kaynak kodları
+├── rules/         # Stack operasyonları
+├── libft/         # Yardımcı fonksiyonlar
+├── ft_printf/     # Printf implementasyonu
+└──Makefile        # Build sistemi
+```
+
+## 📝 Öğrenilen Dersler
+
+- **Algoritma Optimizasyonu:** Farklı yaklaşımları test ederek en verimli çözümü bulma
+- **Veri Yapıları:** Stack veri yapısının etkin kullanımı
+- **Performans Analizi:** Zaman karmaşıklığı analizi ve iyileştirme teknikleri
+- **Problem Çözme:** Karmaşık problemleri küçük parçalara ayırma
+
+> Bu proje, algoritma tasarımı ve optimizasyonu konularında derinlemesine deneyim kazanmamı sağlamıştır. Her iterasyonda daha verimli çözümler bulma süreci oldukça öğretici olmuştur.
